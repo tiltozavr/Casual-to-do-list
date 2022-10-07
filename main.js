@@ -30,7 +30,7 @@ function createToDo(id) {
 
 function deleteToDo(idForDelete) {
     for (let i = 0; i < toDoList.length; i++) { 
-        if (toDoList[i].id = idForDelete) {
+        if (toDoList[i].id === idForDelete) {
             let elem = document.getElementById(idForDelete);
             elem.remove();
             toDoList.splice(i, 1)
