@@ -1,7 +1,8 @@
 const addMessage = document.querySelector(`.form__input`)
 const addButton = document.querySelector(`.form__btn`);
-const container = document.querySelector(`.main-container`);
-const table = document.querySelector(`.main-container__table`);
+const container = document.querySelector(`.table__container`);
+const table = document.querySelector(`.table`);
+const INPUT_ELEMENTS = document.querySelectorAll(`.table__btn`)
 const ENDPOINT = "https://todolist-matveev.herokuapp.com/api/v1/"
 
 function init() {
@@ -33,33 +34,41 @@ function createToDo(data) {
     table.innerHTML = ""
     for (let i = 0; i < data.length; i++) {
         let liElement = document.createElement(`li`)
+        let inputElement = document.createElement(`input`)
+        inputElement.type = "checkbox"
+        if (data[i].done === true) {
+            liElement.style.textDecoration = "line-through"
+            inputElement.checked = true
+        } else {
+            liElement.style.textDecoration = ""
+        }
+        inputElement.classList.add("table__btn")
         liElement.type = "none"
-        liElement.innerHTML = 
-        ` 
-        ${i + 1}. ${data[i].text}
-        <button type="button" class="table__btn" onclick="deleteToDo(${data[i].id})">Сделано</button>
-        `
         liElement.id = data[i].id
+        inputElement.onclick = function() {
+            (changeIsDone(ENDPOINT, data[i].id, data[i].done, data[i].text))
+        }
+        liElement.textContent = `${data[i].text}`
+        liElement.classList.add("table__item")
+        liElement.prepend(inputElement)
         table.append(liElement)
     }
 }
 
-function deleteToDo(idForDelete) {
-    for (let i = 0; i < toDoList.length; i++) { 
-        if (toDoList[i].id === idForDelete) {
-            let elem = document.getElementById(idForDelete);
-            elem.remove();
-            toDoList.splice(i, 1)           
-        }
-    }
-    createToDo()
-}
-
-async function deleteToDo(id) {
-    const resp = await fetch(ENDPOINT + "deletetodo?id=" + id, {
+async function deleteToDo(urlPath, id) {
+    const resp = await fetch(urlPath + "deletetodo?id=" + id, {
         method: "GET"
     })
     getToDoLists(ENDPOINT)
+}
+
+async function changeIsDone(urlPath, id, isDone, text) {
+    if (isDone === true) {
+        const resp = await fetch(urlPath + "updatetodo?id=" + id + "&text=" + text + "&done=" + false)
+    } else {
+        const resp = await fetch(urlPath + "updatetodo?id=" + id + "&text=" + text + "&done=" + true)
+    }
+    getToDoLists(ENDPOINT) 
 }
 
 

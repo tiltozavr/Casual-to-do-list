@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+}
+
+.main__container {
+    width: 720px;
+    height: 100vh;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border: 2px groove black;
+    border-radius: 10px;
+}
+
+.form__input {
+    margin-top: 10px;
+    width: 500px;
+    background-color: rgb(230, 230, 165);
+}
+
+.table__item {
+    margin: 15px;
+}
