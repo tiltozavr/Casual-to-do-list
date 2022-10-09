@@ -3,52 +3,48 @@ const addButton = document.querySelector(`.form__btn`);
 const container = document.querySelector(`.main-container`);
 const table = document.querySelector(`.main-container__table`);
 const ENDPOINT = "https://todolist-matveev.herokuapp.com/api/v1/"
-const URL = "https://api.binance.com/api/v3/"
 
-
-let toDoList = []
-
-
-
-async function getToDoLists(endpoint) {
-    const resp = await fetch(endpoint + "time", {
-        mode: 'no-cors',
-        method: 'GET',
-    });
-    const respData = await resp.json();
-    console.log(respData);
+function init() {
+    getToDoLists(ENDPOINT)
 }
 
-getToDoLists(URL)
+init()
+
+async function getToDoLists(urlPath) {
+    const resp = await fetch(urlPath + "todolist", {
+        method: 'GET'
+    });
+    const respData = await resp.json();
+    createToDo(respData)
+}
+
+async function createToDoList(urlPath, text) {
+    const resp = await fetch(urlPath + "createtodo?text=" + `${text}`, {
+        method: 'GET'
+    });
+}
 
 function formToDo() {
-    let toDo = {
-        text: addMessage.value,
-        done: false, 
-        id: Math.random(),
-    };
-
-    toDoList.push(toDo);
-    createToDo(toDoList[toDoList.length - 1].id)
+    createToDoList(ENDPOINT, addMessage.value);
+    getToDoLists(ENDPOINT)
 };
 
-function createToDo() {
+function createToDo(data) {
     table.innerHTML = ""
-    for (let i = 0; i < toDoList.length; i++) {
+    for (let i = 0; i < data.length; i++) {
         let liElement = document.createElement(`li`)
         liElement.type = "none"
         liElement.innerHTML = 
         ` 
-        ${i + 1}. ${toDoList[i].text}
-        <button type="button" class="table__btn" onclick="deleteToDo(${toDoList[i].id})">Сделано</button>
+        ${i + 1}. ${data[i].text}
+        <button type="button" class="table__btn" onclick="deleteToDo(${data[i].id})">Сделано</button>
         `
-        liElement.id = toDoList[i].id
+        liElement.id = data[i].id
         table.append(liElement)
     }
 }
 
 function deleteToDo(idForDelete) {
-    // table.innerHTML = ""
     for (let i = 0; i < toDoList.length; i++) { 
         if (toDoList[i].id === idForDelete) {
             let elem = document.getElementById(idForDelete);
@@ -57,6 +53,13 @@ function deleteToDo(idForDelete) {
         }
     }
     createToDo()
+}
+
+async function deleteToDo(id) {
+    const resp = await fetch(ENDPOINT + "deletetodo?id=" + id, {
+        method: "GET"
+    })
+    getToDoLists(ENDPOINT)
 }
 
 
