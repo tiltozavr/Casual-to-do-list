@@ -2,6 +2,46 @@ body {
     margin: 0;
 }
 
+.header__nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: auto;
+
+    
+}
+.header__name {
+    width: 140px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 160px;
+}
+
+.header__settings {
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.header__setting__item:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.header__name__todo {
+    color: red;
+    font-size: 30px;
+}
+
+.border {
+    height:20px;
+    width: 100vw;
+    border-top:1px solid #7c858a;
+    padding-left:10px
+}
+
 .main__container {
     width: 720px;
     height: 100vh;
