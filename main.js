@@ -39,32 +39,12 @@ async function formToDo() {
 function createToDo(data) {
     table.innerHTML = ""
     for (let i = 0; i < data.length; i++) {
-        let liElement = document.createElement(`li`)
-        let inputElement = document.createElement(`input`)
-        let buttonEl = document.createElement(`button`);
-        buttonEl.type = "button"
-        buttonEl.onclick = function() {
-            deleteToDo(ENDPOINT, data[i].id)
-        }
-        inputElement.type = "checkbox"
-        if (data[i].done === true) {
-            liElement.style.textDecoration = "line-through"
-            inputElement.checked = true
-        } else {
-            liElement.style.textDecoration = ""
-        }
-        inputElement.classList.add("table__btn")
-        liElement.type = "none"
-        liElement.id = data[i].id
-        inputElement.onclick = function() {
-            data[i].done = data[i].done === true ? false : true; 
-            (changeToDo(ENDPOINT, data[i]))
-        }
-        liElement.textContent = `${data[i].text}`
-        liElement.classList.add("table__item")
-        liElement.prepend(buttonEl)
-        liElement.prepend(inputElement)
-        table.append(liElement)
+        let liEl = createLiElement(data[i]);
+        let buttonEl = createButtonElement(data[i]);
+        let inputEl = createInputElement(data[i]);  
+        liEl.append(buttonEl)
+        liEl.prepend(inputEl)
+        table.append(liEl)
     }
 }
 
@@ -89,6 +69,37 @@ async function changeToDo(urlPath, data) {
 function createInputForm() {
     NEW_FORM.classList.toggle("addnewbutton-none");
     ADDNEW_BUTTON_CONTAINER.classList.toggle("addnewbutton-none");
+}
+
+function createLiElement(data) {
+    let liElement = document.createElement(`li`)
+    liElement.type = "none"
+    liElement.id = data.id
+    liElement.textContent = data.text
+    liElement.classList.add("table__item")
+    liElement.style.textDecoration = data.done === true ? "line-through" : ""
+    return liElement
+}
+
+function createButtonElement(data) {
+    let buttonEl = document.createElement(`button`);
+    buttonEl.type = "button"
+    buttonEl.onclick = function() {
+        deleteToDo(ENDPOINT, data.id)
+    }
+    return buttonEl
+}
+
+function createInputElement(data) {
+    let inputElement = document.createElement(`input`)
+    inputElement.type = "checkbox"
+    inputElement.classList.add("table__btn")
+    inputElement.onclick = function() {
+        data.done = !data.done; 
+        (changeToDo(ENDPOINT, data))
+    }
+    inputElement.checked = data.done === true ? true : false 
+    return inputElement
 }
 
 
