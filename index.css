@@ -6,10 +6,9 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
     margin: auto;
-    height: 70px;
-
-    
+    height: 70px; 
 }
 .header__name {
     width: 140px;
@@ -20,15 +19,30 @@ body {
 }
 
 .header__settings {
-    width: 300px;
+    width: 330px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+}
+
+.header__setting__item {
+    margin-right: 10px;
+    font-size: 30px;
+}
+
+.header__setting__search {
+    margin-top: 5px;
+}
+
+.header__setting__login {
+    color: red;
 }
 
 .header__setting__item:hover {
     cursor: pointer;
     text-decoration: underline;
+    color: gray;
 }
 
 .header__name__todo {
@@ -41,6 +55,24 @@ body {
     width: 100vw;
     border-top:1px solid #7c858a;
     padding-left:10px
+}
+
+.addnewbutton__container {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.addnewbutton {
+    background-color: red;
+    color: white;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    border-color: white;
+}
+
+.addnewbutton:hover {
+    cursor: pointer;
 }
 
 .main__container {
@@ -58,7 +90,9 @@ body {
 .form__input {
     margin-top: 10px;
     width: 500px;
-    background-color: rgb(230, 230, 165);
+    background-color: rgb(206, 81, 81);
+    border-radius: 12px;
+    color: white;
 }
 
 .table__item {
