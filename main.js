@@ -4,7 +4,8 @@ const table = document.querySelector(`.table`);
 const ADDNEW_BUTTON_CONTAINER = document.getElementById('addnewbutton__container');
 const NEW_FORM = document.getElementById(`newForm`);
 // const ENDPOINT = "https://todolist-matveev.herokuapp.com/api/v1/"
-const ENDPOINT = "https://tirawian-to-do-list-node.herokuapp.com/"
+const ENDPOINT = "https://tirawian-to-do-list-node.herokuapp.com/";
+const THREEDOTS_URL = "./pictures/threedots.svg";
 
 function init() {
     getToDoLists()
@@ -91,6 +92,7 @@ function createButtonElement(data) {
     buttonEl.onclick = function() {
         deleteToDo(data.id)
     }
+    buttonEl.style.backgroundImage = `url(${THREEDOTS_URL})`
     return buttonEl
 }
 

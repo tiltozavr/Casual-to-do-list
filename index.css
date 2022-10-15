@@ -158,7 +158,14 @@ a {
 }
 
 .table__btn {
-    margin-left: 20px;
+    height: 15px;
+    margin-left: 20px; 
+    border: none;
+    background-color: white;
+}
+
+.table__btn:hover {
+    cursor: pointer;
 }
 
 .checkbox {
