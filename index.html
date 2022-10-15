@@ -13,10 +13,10 @@
             <div class="header__name">
                 <h1 class="header__name__todo">To</h1>
                 <h1 class="header__name__todo">Do</h1>
-                <h1 style="font-size: 30px;">List</h1>
+                <h1 class="header__name__list">List</h1>
             </div>
             <div class="header__settings">
-                <a href="">
+                <a href="#">
                     <svg xmlns="http://www.w3.org/2000/svg" class="header__setting__item header__setting__search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                         <circle cx="10" cy="10" r="7"></circle>
@@ -35,13 +35,12 @@
                 Add new
             </button>
         </div>
+        <form class="addnewbutton-none newForm" id="newForm">
+            <textarea class="form__input" id="newForm"></textarea>
+            <button type="button" class="form__btn" onclick="createInputForm(); formToDo()">Add</button>
+        </form>
     </div>
     <div class="main__container">
-        <form name="publish">
-            <input type="text" class="form__input" placeholder="Описание"/>
-            <button type="button" class="form__btn" onclick="formToDo()">Добавить</button>
-        </form>
-
         <div class="table__container">
             <ul class="table">
             </ul>
