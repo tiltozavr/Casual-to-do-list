@@ -111,7 +111,7 @@ function createInputElement(data) {
 function createLabelElement (data) {
     let labelEl = document.createElement('label');
     labelEl.classList.add("custom-checkbox");
-    let color = data.done === true ? getColourFromPriority(data) : ""
+    let color = data.done === true ? getColourFromPriority(data) : "white"
     labelEl.style.backgroundColor = color
     return labelEl;
 }
