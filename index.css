@@ -158,10 +158,13 @@ a {
 }
 
 .table__btn {
-    height: 15px;
+    height: 40px;
+    width: 30px;
     margin-left: 20px; 
     border: none;
     background-color: white;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .table__btn:hover {
