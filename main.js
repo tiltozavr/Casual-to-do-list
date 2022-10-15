@@ -39,12 +39,14 @@ async function formToDo() {
 function createToDo(data) {
     table.innerHTML = ""
     for (let i = 0; i < data.length; i++) {
+        let labelEl = createLabelElement(data[i]);
         let liEl = createLiElement(data[i]);
         let buttonEl = createButtonElement(data[i]);
-        let inputEl = createInputElement(data[i]);  
-        liEl.append(buttonEl)
-        liEl.prepend(inputEl)
-        table.append(liEl)
+        let inputEl = createInputElement(data[i]);
+        labelEl.appendChild(inputEl);
+        liEl.prepend(labelEl);  
+        liEl.append(buttonEl);
+        table.append(liEl);
     }
 }
 
@@ -73,9 +75,12 @@ function createInputForm() {
 
 function createLiElement(data) {
     let liElement = document.createElement(`li`)
-    liElement.type = "none"
     liElement.id = data.id
-    liElement.textContent = data.text
+    liElement.innerHTML = data.text.indexOf("\n") === -1 
+    ? data.text  
+    : data.text.split("").map((item => item === "\n" 
+    ? "<br>"
+    : item)).join("")
     liElement.classList.add("table__item")
     liElement.style.textDecoration = data.done === true ? "line-through" : ""
     return liElement
@@ -83,6 +88,7 @@ function createLiElement(data) {
 
 function createButtonElement(data) {
     let buttonEl = document.createElement(`button`);
+    buttonEl.classList.add("table__btn")
     buttonEl.type = "button"
     buttonEl.onclick = function() {
         deleteToDo(ENDPOINT, data.id)
@@ -93,13 +99,19 @@ function createButtonElement(data) {
 function createInputElement(data) {
     let inputElement = document.createElement(`input`)
     inputElement.type = "checkbox"
-    inputElement.classList.add("table__btn")
+    inputElement.classList.add("checkbox")
     inputElement.onclick = function() {
         data.done = !data.done; 
         (changeToDo(ENDPOINT, data))
     }
-    inputElement.checked = data.done === true ? true : false 
+    inputElement.checked = data.done === true ? true : false
     return inputElement
+}
+
+function createLabelElement (data) {
+    let labelEl = document.createElement('label');
+    labelEl.classList.add("custom-checkbox");
+    return labelEl;
 }
 
 
