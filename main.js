@@ -7,21 +7,21 @@ const NEW_FORM = document.getElementById(`newForm`);
 const ENDPOINT = "https://tirawian-to-do-list-node.herokuapp.com/"
 
 function init() {
-    getToDoLists(ENDPOINT)
+    getToDoLists()
 }
 
 init()
 
-async function getToDoLists(urlPath) {
-    const resp = await fetch(urlPath + "tasks", {
+async function getToDoLists() {
+    const resp = await fetch(ENDPOINT + "tasks", {
         method: 'GET'
     });
     const respData = await resp.json();
     createToDo(respData)
 }
 
-async function createToDoList(urlPath, data) {
-    const resp = await fetch(urlPath + "tasks", {
+async function createToDoList(data) {
+    const resp = await fetch(ENDPOINT + "tasks", {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
@@ -32,8 +32,8 @@ async function createToDoList(urlPath, data) {
 }
 
 async function formToDo() {
-    await createToDoList(ENDPOINT, {"text": addMessage.value, "done": false, "priority": 1});
-    await getToDoLists(ENDPOINT)
+    await createToDoList({"text": addMessage.value, "done": false, "priority": 1});
+    await getToDoLists()
 };
 
 function createToDo(data) {
@@ -50,22 +50,22 @@ function createToDo(data) {
     }
 }
 
-async function deleteToDo(urlPath, id) {
-    const resp = await fetch(urlPath + "tasks/" + id, {
+async function deleteToDo(id) {
+    const resp = await fetch(ENDPOINT + "tasks/" + id, {
         method: "DELETE"
     })
-    getToDoLists(ENDPOINT)
+    getToDoLists()
 }
 
-async function changeToDo(urlPath, data) {
-    const resp = await fetch(urlPath + "tasks/" + data.id, {
+async function changeToDo(data) {
+    const resp = await fetch(ENDPOINT + "tasks/" + data.id, {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
             "Content-type": "application/json"
         }
     });
-    getToDoLists(ENDPOINT) 
+    getToDoLists() 
 }
 
 function createInputForm() {
@@ -91,7 +91,7 @@ function createButtonElement(data) {
     buttonEl.classList.add("table__btn")
     buttonEl.type = "button"
     buttonEl.onclick = function() {
-        deleteToDo(ENDPOINT, data.id)
+        deleteToDo(data.id)
     }
     return buttonEl
 }
@@ -102,7 +102,7 @@ function createInputElement(data) {
     inputElement.classList.add("checkbox")
     inputElement.onclick = function() {
         data.done = !data.done; 
-        (changeToDo(ENDPOINT, data))
+        (changeToDo(data))
     }
     inputElement.checked = data.done === true ? true : false
     return inputElement
