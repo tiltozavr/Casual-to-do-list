@@ -104,7 +104,7 @@ function createInputElement(data) {
     inputElement.classList.add("checkbox")
     inputElement.onclick = function() {
         data.done = !data.done; 
-        (changeToDo(data))
+        changeToDo(data)
     }
     inputElement.checked = data.done === true ? true : false
     return inputElement
