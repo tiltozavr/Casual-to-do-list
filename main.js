@@ -32,7 +32,7 @@ async function createToDoList(data) {
 }
 
 async function formToDo() {
-    await createToDoList({"text": addMessage.value, "done": false, "priority": 1});
+    await createToDoList({"text": addMessage.value, "done": false, "priority": 2});
     await getToDoLists()
 };
 
@@ -43,9 +43,13 @@ function createToDo(data) {
         let liEl = createLiElement(data[i]);
         let buttonEl = createButtonElement(data[i]);
         let inputEl = createInputElement(data[i]);
+        let divEl = createDivElement(data[i]);
+        let container = createContainerElement();
         labelEl.appendChild(inputEl);
-        liEl.prepend(labelEl);  
-        liEl.append(buttonEl);
+        container.prepend(labelEl);
+        container.append(divEl);
+        container.append(buttonEl);
+        liEl.append(container);
         table.append(liEl);
     }
 }
@@ -76,15 +80,7 @@ function createInputForm() {
 function createLiElement(data) {
     let liElement = document.createElement(`li`)
     liElement.id = data.id
-    liElement.innerHTML = data.text.indexOf("\n") === -1
-    ? data.text  
-    : data.text.split("")
-        .map(item => item === "\n" 
-            ? "<br>"
-            : item)
-        .join("")
     liElement.classList.add("table__item")
-    liElement.style.textDecoration = data.done === true ? "line-through" : ""
     return liElement
 }
 
@@ -117,6 +113,28 @@ function createLabelElement (data) {
     labelEl.style.backgroundColor = color
     labelEl.style.borderColor = getColourFromPriority(data)
     return labelEl;
+}
+
+function createDivElement(data) {
+    let divEl = document.createElement("div");
+    divEl.classList.add("table__div");
+    let color = getColourFromPriority(data);   
+    divEl.style.borderLeft = `7px solid ${color}`;
+    divEl.innerHTML = data.text.indexOf("\n") === -1
+    ? data.text  
+    : data.text.split("")
+        .map(item => item === "\n" 
+            ? "<br>"
+            : item)
+        .join("")
+    divEl.style.textDecoration = data.done === true ? "line-through" : "";
+    return divEl;
+}
+
+function createContainerElement() {
+    let container = document.createElement("div");
+    container.classList.add("table__container");
+    return container
 }
 
 function getColourFromPriority (data) {

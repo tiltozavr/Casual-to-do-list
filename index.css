@@ -102,8 +102,6 @@ a {
     flex-direction: column;
     align-items: center;
     background-color: white;
-    border: 2px groove black;
-    border-radius: 10px;
 }
 
 .newForm {
@@ -141,6 +139,21 @@ a {
 .table__item {
     margin: 15px;
     list-style: none;
+}
+
+.table__container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.table__div {
+    width: 800px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid;
+    border-radius: 5px;
 }
 
 .table__btn {
