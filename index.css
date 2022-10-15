@@ -59,6 +59,10 @@ a {
     font-size: 30px;
 }
 
+.header__name__list {
+    font-size: 30px;
+}
+
 .border {
     height:20px;
     width: 100vw;
