@@ -113,18 +113,16 @@ function createLabelElement (data) {
     labelEl.classList.add("custom-checkbox");
     let color = data.done === true ? getColourFromPriority(data) : "white"
     labelEl.style.backgroundColor = color
+    labelEl.style.borderColor = getColourFromPriority(data)
     return labelEl;
 }
 
 function getColourFromPriority (data) {
-    if (data.priority === 1) {
-        return "red"
-    } else if (data.priority === 2) {
-        return "orange"
-    } else if (data.priority === 3) {
-        return "blue"
-    } else {
-        return "green"
+    switch(data.priority) {
+        case 1: return "red";
+        case 2: return "orange";
+        case 3: return "blue";
+        default: return "green"
     }
 }
 
