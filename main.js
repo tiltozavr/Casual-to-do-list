@@ -76,11 +76,13 @@ function createInputForm() {
 function createLiElement(data) {
     let liElement = document.createElement(`li`)
     liElement.id = data.id
-    liElement.innerHTML = data.text.indexOf("\n") === -1 
+    liElement.innerHTML = data.text.indexOf("\n") === -1
     ? data.text  
-    : data.text.split("").map((item => item === "\n" 
-    ? "<br>"
-    : item)).join("")
+    : data.text.split("")
+        .map(item => item === "\n" 
+            ? "<br>"
+            : item)
+        .join("")
     liElement.classList.add("table__item")
     liElement.style.textDecoration = data.done === true ? "line-through" : ""
     return liElement
