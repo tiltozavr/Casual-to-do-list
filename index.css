@@ -95,7 +95,7 @@ a {
 }
 
 .main__container {
-    width: 720px;
+    min-width: 720px;
     height: 100vh;
     margin: auto;
     display: flex;
@@ -139,17 +139,20 @@ a {
 .table__item {
     margin: 15px;
     list-style: none;
+    position: relative;
 }
 
 .table__container {
     display: flex;
     flex-direction: row;
     align-items: center;
+    min-height: 40px;
+    min-width: 910px;
 }
 
 .table__div {
     min-height: 30px;
-    width: 800px;
+    min-width: 800px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -201,5 +204,81 @@ a {
 
 .custom-checkbox:hover {
     cursor: pointer;
+}
+
+.menu__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid black;
+    border-radius: 7px;
+    margin-left: 30px;
+    position: absolute;
+    right: -150px;
+}
+
+.menu__item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.menu__item:hover {
+    cursor: pointer;
+    color: red;
+}
+
+.color__menu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid black;
+    border-radius: 7px;
+    right: -200px;
+}
+
+.color__red {
+    border: 5px solid red;
+    border-radius: 50%; 
+    background-color: red; 
+    width: 15px; 
+    height: 15px;
+    margin-bottom: 5px;
+}
+
+.color__orange {
+    border: 5px solid orange;
+    border-radius: 50%; 
+    background-color: orange; 
+    width: 15px; 
+    height: 15px;
+    margin-bottom: 5px;
+}
+
+.color__blue {
+    border: 5px solid blue;
+    border-radius: 50%; 
+    background-color: blue; 
+    width: 15px; 
+    height: 15px;
+    margin-bottom: 5px;
+}
+
+.color__green {
+    border: 5px solid green;
+    border-radius: 50%; 
+    background-color: green; 
+    width: 15px; 
+    height: 15px;
+    margin-bottom: 5px;
+}
+
+.color__red:hover, .color__orange:hover, .color__blue:hover, .color__green:hover {
+    cursor: pointer;
+}
+
+.menu__container__none {
+    display: none;
 }
 
