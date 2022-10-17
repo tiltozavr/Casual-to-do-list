@@ -278,6 +278,22 @@ a {
     cursor: pointer;
 }
 
+.red {
+    border-left: 7px solid red;
+}
+
+.orange {
+    border-left:  7px solid orange;
+}
+
+.blue {
+    border-left: 7px solid blue;
+}
+
+.green {
+    border-left: 7px solid green;
+}
+
 .menu__container__none {
     display: none;
 }

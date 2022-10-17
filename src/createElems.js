@@ -68,10 +68,9 @@ function createLabelElement (data) {
 }
 
 function createDivElement(data) {
-    let divEl = document.createElement("div");
-    divEl.classList.add("table__div");
     let color = getColourFromPriority(data);   
-    divEl.style.borderLeft = `7px solid ${color}`;
+    let divEl = document.createElement("div");
+    divEl.classList.add("table__div", color);
     divEl.innerHTML = data.text.indexOf("\n") === -1
     ? data.text  
     : data.text.split("")
