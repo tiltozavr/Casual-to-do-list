@@ -81,10 +81,7 @@ function createToDo(data) {
         let container = createContainerElement();  
         labelEl.appendChild(inputEl);
         container.prepend(labelEl);
-        container.append(divEl);
-        container.append(buttonEl);
-        container.append(menuContainer);
-        container.append(colorContainer);
+        container.append(divEl, buttonEl, menuContainer, colorContainer);
         liEl.append(container);
         table.append(liEl);
     }
@@ -178,10 +175,10 @@ function createContainerElement() {
 function createMenuContainer(data, colorContainer) {
     let container = document.createElement("div");
     container.classList.add("menu__container__none", "menu__container");
-    let menuAdd = createMenuAdd(container);
-    let menuEdit = createMenuEdit(container);
-    let menuColor = createMenuColor(container);
-    let menuDelete = createMenuDelete(container);
+    let menuAdd = createMenuItem(container, PLUS_IMG_SRC, "Add tree");
+    let menuEdit = createMenuItem(container, EDIT_IMG_SRC, "Edit");
+    let menuColor = createMenuItem(container, DROP_IMG_SRC, "Change color");
+    let menuDelete = createMenuItem(container, DELETE_IMG_SRC, "Delete");
     menuDelete.addEventListener("click", () => {
         deleteToDo(data.id)
     })
@@ -203,27 +200,10 @@ function getColourFromPriority (data) {
 function createColorMenu(data) {
     let container = document.createElement("div");
     container.classList.add("menu__container__none", "color__menu");
-    let red = document.createElement("div");
-    let orange = document.createElement("div");
-    let blue = document.createElement("div");
-    let green = document.createElement("div");
-    red.classList.add("color__red");
-    orange.classList.add("color__orange");
-    blue.classList.add("color__blue");
-    green.classList.add("color__green");
-    red.addEventListener("click", () => {
-        changeColor(data, "red")
-    })
-    orange.addEventListener("click", () => {
-        changeColor(data, "orange")
-    })
-    blue.addEventListener("click", () => {
-        changeColor(data, "blue")
-    })
-    green.addEventListener("click", () => {
-        changeColor(data, "green")
-    })
-    container.append(red, orange, blue, green);
+    let red = createColorMenuItem(container, "color__red", data, "red");
+    let orange = createColorMenuItem(container, "color__orange", data, "orange");
+    let blue = createColorMenuItem(container, "color__blue", data, "blue");
+    let green = createColorMenuItem(container, "color__green", data, "green");
     return container
 }
 
@@ -232,51 +212,40 @@ function showChooseColorMenu(colorContainer) {
 }
 
 function changeColor(data, choosenColor) {
-    if (choosenColor === "red") {
-        data.priority = 1
-    } else if (choosenColor === "orange") {
-        data.priority = 2;
-    } else if (choosenColor === "blue") {
-        data.priority = 3
-    } else {
-        data.priority = 4
+    switch(choosenColor) {
+        case "red": 
+            data.priority = 1;
+            break;
+        case "orange": 
+            data.priority = 2;
+            break;
+        case "blue": 
+            data.priority = 3;
+            break;
+        default: 
+            data.priority = 4; 
+            break;
     };
     changeToDo(data);
 }
 
-function createMenuAdd(container) {
-    let menuAdd = new Elem("div");
-    menuAdd.createChildImg(PLUS_IMG_SRC); 
-    menuAdd.createChildSpan("Add tree");
-    menuAdd.addClassList("menu__item");
-    menuAdd.appendTo(container);
-    return menuAdd.getEl();
+function createMenuItem(container, src, text) {
+    let item = new Elem("div");
+    item.createChildImg(src); 
+    item.createChildSpan(text);
+    item.addClassList("menu__item");
+    item.appendTo(container);
+    return item.getEl();
 }
 
-function createMenuEdit(container) {
-    let menuEdit = new Elem("div");
-    menuEdit.createChildImg(EDIT_IMG_SRC);
-    menuEdit.createChildSpan("Edit");
-    menuEdit.addClassList("menu__item");
-    menuEdit.appendTo(container);
-    return menuEdit.getEl();
+function createColorMenuItem(container, className, data, color) {
+    let item = new Elem("div");
+    item.addClassList(className);
+    item.appendTo(container);
+    let colorItem = item.getEl();
+    colorItem.addEventListener("click", () => {
+        changeColor(data, color)
+    });
+    return colorItem;
 }
-function createMenuColor(container) {
-    let menuColor = new Elem("div");
-    menuColor.createChildImg(DROP_IMG_SRC);
-    menuColor.createChildSpan("Change color");
-    menuColor.addClassList("menu__item");
-    menuColor.appendTo(container);
-    return menuColor.getEl();
-}
-
-function createMenuDelete(container) {
-    let menuDelete = new Elem("div");
-    menuDelete.createChildImg(DELETE_IMG_SRC);
-    menuDelete.createChildSpan("Delete");
-    menuDelete.addClassList("menu__item");
-    menuDelete.appendTo(container);
-    return menuDelete.getEl();
-}
-
 
