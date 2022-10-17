@@ -165,6 +165,7 @@ function createDivElement(data) {
             : item)
         .join("")
     divEl.style.textDecoration = data.done === true ? "line-through" : "";
+    divEl.style.color = data.done === true ? "gray" : "";
     return divEl;
 }
 
@@ -246,7 +247,7 @@ function changeColor(data, choosenColor) {
 function createMenuAdd(container) {
     let menuAdd = new Elem("div");
     menuAdd.createChildImg(PLUS_IMG_SRC); 
-    menuAdd.createChildSpan("Add");
+    menuAdd.createChildSpan("Add tree");
     menuAdd.addClassList("menu__item");
     menuAdd.appendTo(container);
     return menuAdd.getEl();
