@@ -1,24 +1,3 @@
-const addMessage = document.querySelector(`.form__input`)
-const container = document.querySelector(`.table__container`);
-const table = document.querySelector(`.table`);
-const ADDNEW_BUTTON_CONTAINER = document.getElementById('addnewbutton__container');
-const NEW_FORM = document.getElementById(`newForm`);
-// const ENDPOINT = "https://todolist-matveev.herokuapp.com/api/v1/"
-const ENDPOINT = "https://tirawian-to-do-list-node.herokuapp.com/";
-const THREEDOTS_URL = "./pictures/threedots.svg";
-const MENU_CONTAINER = document.querySelector(`.menu__container__none`);
-const PLUS_IMG_SRC = "./pictures/plus.svg"; 
-const EDIT_IMG_SRC = "./pictures/pencil.svg"
-const DROP_IMG_SRC = "./pictures/drop.svg";
-const DELETE_IMG_SRC = "./pictures/trash.svg";
-
-
-function init() {
-    getToDoLists()
-}
-
-init()
-
 class Elem {
     constructor(el) {
         this.element = document.createElement(el);
@@ -42,67 +21,6 @@ class Elem {
         span.textContent = text; 
         this.element.append(span);
     }
-}
-
-async function getToDoLists() {
-    const resp = await fetch(ENDPOINT + "tasks", {
-        method: 'GET'
-    });
-    const respData = await resp.json();
-    createToDo(respData)
-}
-
-async function createToDoList(data) {
-    const resp = await fetch(ENDPOINT + "tasks", {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            "Content-type": "application/json"
-        }
-    });
-    const respData = await resp.json();
-}
-
-async function formToDo() {
-    await createToDoList({"text": addMessage.value, "done": false, "priority": 1});
-    await getToDoLists()
-};
-
-function createToDo(data) {
-    table.innerHTML = ""
-    for (let i = 0; i < data.length; i++) {
-        let labelEl = createLabelElement(data[i]);
-        let colorContainer = createColorMenu(data[i]);  
-        let liEl = createLiElement(data[i]);
-        let menuContainer = createMenuContainer(data[i], colorContainer);
-        let buttonEl = createButtonElement(menuContainer);
-        let inputEl = createInputElement(data[i]);
-        let divEl = createDivElement(data[i]);
-        let container = createContainerElement();  
-        labelEl.appendChild(inputEl);
-        container.prepend(labelEl);
-        container.append(divEl, buttonEl, menuContainer, colorContainer);
-        liEl.append(container);
-        table.append(liEl);
-    }
-}
-
-async function deleteToDo(id) {
-    const resp = await fetch(ENDPOINT + "tasks/" + id, {
-        method: "DELETE"
-    })
-    getToDoLists()
-}
-
-async function changeToDo(data) {
-    const resp = await fetch(ENDPOINT + "tasks/" + data.id, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            "Content-type": "application/json"
-        }
-    });
-    getToDoLists() 
 }
 
 function createInputForm() {
@@ -188,47 +106,6 @@ function createMenuContainer(data, colorContainer) {
     return container
 }
 
-function getColourFromPriority (data) {
-    switch(data.priority) {
-        case 1: return "red";
-        case 2: return "orange";
-        case 3: return "blue";
-        default: return "green"
-    }
-}
-
-function createColorMenu(data) {
-    let container = document.createElement("div");
-    container.classList.add("menu__container__none", "color__menu");
-    let red = createColorMenuItem(container, "color__red", data, "red");
-    let orange = createColorMenuItem(container, "color__orange", data, "orange");
-    let blue = createColorMenuItem(container, "color__blue", data, "blue");
-    let green = createColorMenuItem(container, "color__green", data, "green");
-    return container
-}
-
-function showChooseColorMenu(colorContainer) {
-    colorContainer.classList.toggle("menu__container__none");
-}
-
-function changeColor(data, choosenColor) {
-    switch(choosenColor) {
-        case "red": 
-            data.priority = 1;
-            break;
-        case "orange": 
-            data.priority = 2;
-            break;
-        case "blue": 
-            data.priority = 3;
-            break;
-        default: 
-            data.priority = 4; 
-            break;
-    };
-    changeToDo(data);
-}
-
 function createMenuItem(container, src, text) {
     let item = new Elem("div");
     item.createChildImg(src); 
@@ -248,4 +125,3 @@ function createColorMenuItem(container, className, data, color) {
     });
     return colorItem;
 }
-
