@@ -11,6 +11,7 @@ const PLUS_IMG_SRC = "./pictures/plus.svg";
 const EDIT_IMG_SRC = "./pictures/pencil.svg"
 const DROP_IMG_SRC = "./pictures/drop.svg";
 const DELETE_IMG_SRC = "./pictures/trash.svg";
+let liContainers
 
 
 function init() {
@@ -24,22 +25,23 @@ async function formToDo() {
     await getToDoLists()
 };
 
-function createToDo(data) {
-    table.innerHTML = ""
+function createToDo(data, subContainer) {
     for (let i = 0; i < data.length; i++) {
+        let mainContainer = !data[i].parentId ? table : subContainer;
         let labelEl = createLabelElement(data[i]);
         let colorContainer = createColorMenu(data[i]);  
         let liEl = createLiElement(data[i]);
-        let menuContainer = createMenuContainer(data[i], colorContainer);
+        let menuContainer = createMenuContainer(data[i], colorContainer, liEl);
         let buttonEl = createButtonElement(menuContainer);
         let inputEl = createInputElement(data[i]);
         let divEl = createDivElement(data[i]);
-        let container = createContainerElement();  
+        let container = createContainerElement(); 
         labelEl.appendChild(inputEl);
         container.prepend(labelEl);
         container.append(divEl, buttonEl, menuContainer, colorContainer);
         liEl.append(container);
-        table.append(liEl);
+        mainContainer.append(liEl);
+        createToDo(data[i].subTasks, liEl)           
     }
 }
 

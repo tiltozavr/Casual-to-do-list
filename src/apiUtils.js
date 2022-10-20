@@ -3,6 +3,7 @@ async function getToDoLists() {
         method: 'GET'
     });
     const respData = await resp.json();
+    table.innerHTML = ""
     createToDo(respData)
 }
 

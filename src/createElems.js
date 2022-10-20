@@ -89,7 +89,7 @@ function createContainerElement() {
     return container
 }
 
-function createMenuContainer(data, colorContainer) {
+function createMenuContainer(data, colorContainer, subListContainer) {
     let container = document.createElement("div");
     container.classList.add("menu__container__none", "menu__container");
     let menuAdd = createMenuItem(container, PLUS_IMG_SRC, "Add tree");
@@ -101,6 +101,9 @@ function createMenuContainer(data, colorContainer) {
     })
     menuColor.addEventListener("click", () => {
         colorContainer.classList.toggle("menu__container__none")
+    })
+    menuAdd.addEventListener("click", () => {
+        createSubToDo(data, subListContainer);
     })
     return container
 }
