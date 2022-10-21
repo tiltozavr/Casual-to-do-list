@@ -127,3 +127,29 @@ function createColorMenuItem(container, className, data, color) {
     });
     return colorItem;
 }
+
+function createSubToDo(data, LiContainer) {
+    let labelEl = createLabelElement(data);
+    let colorContainer = createColorMenu(data);  
+    let liEl = createLiElement(data);
+    let menuContainer = createMenuContainer(data, colorContainer);
+    let buttonEl = document.createElement("button");
+    let form = document.createElement("form");
+    form.id = "subForm"
+    buttonEl.textContent = "Add";
+    buttonEl.type = "button";
+    let inputEl = createInputElement(data);
+    let divEl = document.createElement("input");
+    let container = createContainerElement();
+    let ulEl = document.createElement("ul");
+    form.append(divEl, buttonEl);
+    buttonEl.addEventListener("click", async () => {
+        await createToDoList({"text": divEl.value, "done": false, "priority": 1, "parentId": data.id});
+        getToDoLists();
+    })
+    labelEl.appendChild(inputEl);
+    container.prepend(labelEl);
+    container.append(divEl, menuContainer, colorContainer, form);
+    ulEl.append(container)
+    LiContainer.append(ulEl);
+}
